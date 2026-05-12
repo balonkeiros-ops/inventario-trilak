@@ -423,12 +423,8 @@ def importar_excel():
     </body>
     </html>
     '''
-
 if __name__ == '__main__':
-    print("="*60)
-    print("🚀 SISTEMA DE INVENTARIO - CON AUTENTICACIÓN")
-    print("📡 Servidor en: http://127.0.0.1:5000")
-    print("👤 Usuarios: admin/admin123, usuario1/pass1, usuario2/pass2")
-    print("📥 Para importar datos, ve a: http://127.0.0.1:5000/importar_excel (requiere login)")
-    print("="*60)
-    app.run(debug=True, port=5000)
+    import os
+    # Esto permite que Render le asigne el puerto que necesite
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
