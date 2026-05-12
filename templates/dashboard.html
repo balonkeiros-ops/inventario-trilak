@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2><i class="bi bi-speedometer2"></i> Dashboard</h2>
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Stock de materiales</h5>
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Material</th>
+                            <th>Color</th>
+                            <th>Stock (m)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for m in materiales %}
+                        <tr>
+                            <td>{{ m.nombre }}</td>
+                            <td>{{ m.color }}</td>
+                            <td>{{ stock_material(m.id) }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Últimos movimientos</h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Material</th>
+                            <th>Tipo</th>
+                            <th>Cantidad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for mov in movimientos %}
+                        <tr>
+                            <td>{{ mov.fecha.strftime('%d/%m/%Y') }}</td>
+                            <td>{{ materiales | selectattr('id', 'equalto', mov.material_id) | first | attr('nombre') }}</td>
+                            <td><span class="badge bg-{{ 'success' if mov.tipo=='entrada' else 'danger' }}">{{ mov.tipo }}</span></td>
+                            <td>{{ mov.cantidad }} m</td>
+                        </tr>
+                        {% else %}
+                        <tr><td colspan="4" class="text-center">No hay movimientos</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

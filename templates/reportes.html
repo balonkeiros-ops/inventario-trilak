@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2><i class="bi bi-bar-chart"></i> Reportes</h2>
+<div class="card mt-4">
+    <div class="card-body">
+        <p>Exporta el inventario actual a un archivo Excel.</p>
+        <a href="{{ url_for('exportar_excel') }}" class="btn btn-success">
+            <i class="bi bi-file-earmark-excel"></i> Exportar a Excel
+        </a>
+    </div>
+</div>
+{% endblock %}

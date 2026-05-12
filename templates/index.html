@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12 text-center mb-5">
+        <h1 class="display-4">Sistema de Control de Inventario</h1>
+        <p class="lead">Gestión de material de cubiertas</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4 mb-4">
+        <div class="card text-center h-100">
+            <div class="card-body">
+                <i class="bi bi-boxes display-1 text-primary mb-3"></i>
+                <h5 class="card-title">Materiales</h5>
+                <p class="card-text">Administra el catálogo</p>
+                <a href="/materiales" class="btn btn-primary">Ver Materiales</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card text-center h-100">
+            <div class="card-body">
+                <i class="bi bi-arrow-left-right display-1 text-success mb-3"></i>
+                <h5 class="card-title">Movimientos</h5>
+                <p class="card-text">Registra entradas y salidas</p>
+                <a href="{{ url_for('nuevo_movimiento') }}" class="btn btn-success">Nuevo Movimiento</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card text-center h-100">
+            <div class="card-body">
+                <i class="bi bi-bar-chart display-1 text-warning mb-3"></i>
+                <h5 class="card-title">Reportes</h5>
+                <p class="card-text">Exporta a Excel</p>
+                <a href="{{ url_for('reportes') }}" class="btn btn-warning">Ver Reportes</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

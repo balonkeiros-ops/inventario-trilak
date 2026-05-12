@@ -1,0 +1,69 @@
+
+/* static/css/style.css */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    padding-top: 20px;
+}
+
+.container {
+    max-width: 1200px;
+}
+
+.navbar {
+    margin-bottom: 30px;
+}
+
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.card-header {
+    border-radius: 10px 10px 0 0 !important;
+    font-weight: 600;
+}
+
+.table th {
+    background-color: #f8f9fa;
+    border-top: none;
+}
+
+.btn {
+    border-radius: 6px;
+    padding: 8px 16px;
+}
+
+.alert {
+    border-radius: 8px;
+    border: none;
+}
+
+.badge {
+    font-weight: 500;
+    padding: 6px 12px;
+}
+
+/* Colores específicos para materiales */
+.bg-blanco { background-color: #f8f9fa; color: #000; }
+.bg-rojo { background-color: #dc3545; }
+.bg-azul { background-color: #0d6efd; }
+.bg-verde { background-color: #198754; }
+.bg-amarillo { background-color: #ffc107; color: #000; }
+.bg-naranja { background-color: #fd7e14; }
+.bg-negro { background-color: #212529; }
+.bg-gris { background-color: #6c757d; }
+body {
+    font-family: Arial;
+    background-color: #f4f6f9;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    margin: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 3px 10px rgba(0,0,0,0.1);
+}

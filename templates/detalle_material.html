@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header bg-info text-white">
+        <h4 class="mb-0">{{ material.nombre }} ({{ material.codigo }})</h4>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <p><strong>Color:</strong> {{ material.color }}</p>
+                <p><strong>Tipo:</strong> {{ material.tipo }}</p>
+                <p><strong>Proveedor:</strong> {{ material.proveedor or 'No especificado' }}</p>
+            </div>
+            <div class="col-md-6">
+                <p><strong>Stock actual:</strong> 
+                    <span class="badge bg-{{ 'success' if stock_actual > 0 else 'danger' }} fs-6">
+                        {{ stock_actual }} m
+                    </span>
+                </p>
+                <p><strong>Unidad:</strong> {{ material.unidad_medida }}</p>
+            </div>
+        </div>
+
+        <hr>
+        <h5>Historial de movimientos</h5>
+        {% if movimientos %}
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Tipo</th>
+                    <th>Cantidad</th>
+                    <th>Referencia</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for m in movimientos %}
+                <tr>
+                    <td>{{ m.fecha.strftime('%d/%m/%Y') }}</td>
+                    <td>
+                        <span class="badge bg-{{ 'success' if m.tipo == 'entrada' else 'danger' }}">
+                            {{ m.tipo|upper }}
+                        </span>
+                    </td>
+                    <td>{{ m.cantidad }} m</td>
+                    <td>{{ m.referencia or '-' }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="text-muted">No hay movimientos registrados.</p>
+        {% endif %}
+        <a href="/materiales" class="btn btn-secondary mt-3">Volver</a>
+    </div>
+</div>
+{% endblock %}
