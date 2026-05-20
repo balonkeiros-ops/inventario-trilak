@@ -431,3 +431,45 @@ if __name__ == '__main__':
     # Esto permite que Render le asigne el puerto que necesite
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
+    @app.before_request
+def cargar_maestro_materiales():
+    # Creamos las tablas en Postgres si no existen
+    db.create_all()
+    
+    # Lista con tus 59 referencias del Excel
+    materiales_iniciales = [
+        {"codigo": "COMUS", "nombre": "COMUS BLANCO", "color": "BLANCO", "tipo": "KOPEEL", "stock": 538.9},
+        {"codigo": "COMUS", "nombre": "COMUS BLANCO BRILLANTE", "color": "BLANCO BRILLANTE", "tipo": "KOPEEL", "stock": 4.0},
+        {"codigo": "COMUS", "nombre": "COMUS AMARILLO", "color": "AMARILLO", "tipo": "KOPEEL", "stock": 8.0},
+        {"codigo": "COMUS", "nombre": "COMUS AZUL", "color": "AZUL", "tipo": "KOPEEL", "stock": 59.1},
+        {"codigo": "COMUS", "nombre": "COMUS ROJO", "color": "ROJO", "tipo": "KOPEEL", "stock": 5.0},
+        {"codigo": "COMUS", "nombre": "COMUS NARANJA", "color": "NARANJA", "tipo": "KOPEEL", "stock": 28.0},
+        {"codigo": "COMUS", "nombre": "COMUS NEGRO", "color": "NEGRO", "tipo": "KOPEEL", "stock": 95.5},
+        {"codigo": "GERMANO", "nombre": "GER ROJO", "color": "ROJO", "tipo": "KOPEEL", "stock": 129.8},
+        {"codigo": "MEET", "nombre": "KOPEEL", "color": "COLOR", "tipo": "KOPEEL", "stock": 18.0},
+        {"codigo": "MEET", "nombre": "MEETNEGRO", "color": "NEGRO", "tipo": "KOPEEL", "stock": 27.0},
+        {"codigo": "MEET", "nombre": "MEETROJO", "color": "ROJO", "tipo": "KOPEEL", "stock": 25.0},
+        {"codigo": "VOLEYBOL", "nombre": "VOL BLANCO", "color": "BLANCO", "tipo": "KOPEEL", "stock": 69.0},
+        {"codigo": "VOLEYBOL", "nombre": "VOL ROJO", "color": "ROJO", "tipo": "KOPEEL", "stock": 25.0},
+        {"codigo": "VOLEYBOL", "nombre": "VOL VERDE", "color": "VERDE", "tipo": "KOPEEL", "stock": 0.0},
+        {"codigo": "VOLEYBOL", "nombre": "VOL AMARILLO", "color": "AMARILLO", "tipo": "KOPEEL", "stock": 7.0},
+        {"codigo": "VOLEYBOL", "nombre": "VOL AZUL", "color": "AZUL", "tipo": "KOPEEL", "stock": 12.0},
+        {"codigo": "COSTA", "nombre": "COS OROJO", "color": "ROJO", "tipo": "KOPEEL", "stock": 35.0},
+        {"codigo": "COSTA", "nombre": "COS OVERDE", "color": "VERDE", "tipo": "KOPEEL", "stock": 71.0},
+        {"codigo": "COSTA", "nombre": "COS OBLANCO", "color": "BLANCO", "tipo": "KOPEEL", "stock": 25.0},
+        {"codigo": "MEXICANO", "nombre": "MEX OASISI VERDE", "color": "OASISI VERDE", "tipo": "KOPEEL", "stock": 30.0}
+    ]
+    
+    # Comprobamos si la base de datos está vacía para no duplicar
+    from app_unificada import Material  # Asegúrate de usar el nombre exacto de tu clase modelo de Materiales
+    if Material.query.count() == 0:
+        for mat in materiales_iniciales:
+            nuevo = Material(
+                codigo=mat["codigo"],
+                nombre=mat["nombre"],
+                color=mat["color"],
+                tipo=mat["tipo"],
+                stock=mat["stock"]
+            )
+            db.session.add(nuevo)
+        db.session.commit()
