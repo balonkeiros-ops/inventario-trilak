@@ -9,6 +9,9 @@ from io import BytesIO
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'clave_segura_cambiar_en_produccion'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///inventario.db'
+import os
+
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///inventario.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOAD_FOLDER'] = 'uploads'
 
