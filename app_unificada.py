@@ -431,12 +431,11 @@ if __name__ == '__main__':
     # Esto permite que Render le asigne el puerto que necesite
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
-    @app.before_request
+    
+@app.before_request
 def cargar_maestro_materiales():
-    # Creamos las tablas en Postgres si no existen
     db.create_all()
     
-    # Lista con tus 59 referencias del Excel
     materiales_iniciales = [
         {"codigo": "COMUS", "nombre": "COMUS BLANCO", "color": "BLANCO", "tipo": "KOPEEL", "stock": 538.9},
         {"codigo": "COMUS", "nombre": "COMUS BLANCO BRILLANTE", "color": "BLANCO BRILLANTE", "tipo": "KOPEEL", "stock": 4.0},
@@ -460,16 +459,18 @@ def cargar_maestro_materiales():
         {"codigo": "MEXICANO", "nombre": "MEX OASISI VERDE", "color": "OASISI VERDE", "tipo": "KOPEEL", "stock": 30.0}
     ]
     
-    # Comprobamos si la base de datos está vacía para no duplicar
-    from app_unificada import Material  # Asegúrate de usar el nombre exacto de tu clase modelo de Materiales
-    if Material.query.count() == 0:
-        for mat in materiales_iniciales:
-            nuevo = Material(
-                codigo=mat["codigo"],
-                nombre=mat["nombre"],
-                color=mat["color"],
-                tipo=mat["tipo"],
-                stock=mat["stock"]
-            )
-            db.session.add(nuevo)
-        db.session.commit()
+    try:
+        from app_unificada import Material
+        if Material.query.count() == 0:
+            for mat in materiales_iniciales:
+                nuevo = Material(
+                    codigo=mat["codigo"],
+                    nombre=mat["nombre"],
+                    color=mat["color"],
+                    tipo=mat["tipo"],
+                    stock=mat["stock"]
+                )
+                db.session.add(nuevo)
+            db.session.commit()
+    except Exception as e:
+        print(f"Error al cargar materiales automáticos: {e}")
