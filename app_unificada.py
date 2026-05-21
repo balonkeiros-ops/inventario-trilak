@@ -463,14 +463,25 @@ def cargar_maestro_materiales():
         from app_unificada import Material
         if Material.query.count() == 0:
             for mat in materiales_iniciales:
-                nuevo = Material(
-                    codigo=mat["codigo"],
-                    nombre=mat["nombre"],
-                    color=mat["color"],
-                    tipo=mat["tipo"],
-                    stock=mat["stock"]
-                )
+                # Creamos el objeto vacío
+                nuevo = Material()
+                nuevo.codigo = mat["codigo"]
+                nuevo.nombre = mat["nombre"]
+                nuevo.color = mat["color"]
+                nuevo.tipo = mat["tipo"]
+                
+                # Asignamos el stock intentando detectar el nombre exacto de la columna
+                if hasattr(nuevo, 'cantidad'):
+                    nuevo.cantidad = mat["stock"]
+                elif hasattr(nuevo, 'metraje'):
+                    nuevo.metraje = mat["stock"]
+                elif hasattr(nuevo, 'stock_inicial'):
+                    nuevo.stock_inicial = mat["stock"]
+                else:
+                    nuevo.stock = mat["stock"]
+                    
                 db.session.add(nuevo)
             db.session.commit()
+            print("¡Carga masiva de materiales completada con éxito!")
     except Exception as e:
         print(f"Error al cargar materiales automáticos: {e}")
