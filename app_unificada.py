@@ -432,7 +432,6 @@ if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
 
-# CÓDIGO MASIVO COMPLETO - 59 REFERENCIAS MAESTRAS
 @app.before_request
 def cargar_maestro_materiales():
     db.create_all()
@@ -475,17 +474,17 @@ def cargar_maestro_materiales():
         {"codigo": "COSTA", "nombre": "COS OVERDE", "color": "VERDE", "tipo": "KOPEEL", "stock": 71.0},
         {"codigo": "COSTA", "nombre": "COS OBLANCO", "color": "BLANCO", "tipo": "KOPEEL", "stock": 25.0},
         {"codigo": "MEXICANO", "nombre": "MEX OASISI VERDE", "color": "OASISI VERDE", "tipo": "KOPEEL", "stock": 30.0},
-        {"codigo": "PU PVC", "nombre": "PU 1.4 BLANCO MATE", "color": "BLANCO MATE", "tipo": "PU PVC", "stock": 124.0},
-        {"codigo": "PU PVC", "nombre": "PU 1.4 BLANCO BRILLANTE", "color": "BLANCO BRILLANTE", "tipo": "PU PVC", "stock": 47.0},
-        {"codigo": "PU PVC", "nombre": "PU 1.4 AMARILLO NEON BRILLANTE", "color": "AMARILLO NEON BRILLANTE", "tipo": "PU PVC", "stock": 80.0},
-        {"codigo": "PU PVC", "nombre": "PU 1.4 NARANJA NEON", "color": "NARANJA NEON", "tipo": "PU PVC", "stock": 24.0},
-        {"codigo": "PU PVC", "nombre": "PU 1.4 AZUL REY BRILLANTE", "color": "AZUL REY BRILLANTE", "tipo": "PU PVC", "stock": 12.0},
-        {"codigo": "PU PVC", "nombre": "PU 1.2 BLANCO MATE TEXTURADO", "color": "BLANCO MATE TEXTURADO", "tipo": "PU PVC", "stock": 35.0},
-        {"codigo": "PU PVC", "nombre": "PU 1.2 AMARILLO MATE TEXTURADO", "color": "AMARILLO MATE TEXTURADO", "tipo": "PU PVC", "stock": 46.0},
-        {"codigo": "PU PVC", "nombre": "PU GRIS PLATA TEXTURADO", "color": "GRIS PLATA TEXTURADO", "tipo": "PU PVC", "stock": 140.0},
-        {"codigo": "PU PVC", "nombre": "PVC 1.2 BLANCO FOAM", "color": "BLANCO FOAM", "tipo": "PU PVC", "stock": 29.0},
-        {"codigo": "PU PVC", "nombre": "PVC 1.2 AMARILLO FOAM", "color": "AMARILLO FOAM", "tipo": "PU PVC", "stock": 40.0},
-        {"codigo": "PU PVC", "nombre": "PVC 1.2 NARANJA FOAM", "color": "NARANJA FOAM", "tipo": "PU PVC", "stock": 23.0},
+        {"codigo": "PU_PVC", "nombre": "PU 1.4 BLANCO MATE", "color": "BLANCO MATE", "tipo": "PU PVC", "stock": 124.0},
+        {"codigo": "PU_PVC", "nombre": "PU 1.4 BLANCO BRILLANTE", "color": "BLANCO BRILLANTE", "tipo": "PU PVC", "stock": 47.0},
+        {"codigo": "PU_PVC", "nombre": "PU 1.4 AMARILLO NEON BRILLANTE", "color": "AMARILLO NEON BRILLANTE", "tipo": "PU PVC", "stock": 80.0},
+        {"codigo": "PU_PVC", "nombre": "PU 1.4 NARANJA NEON", "color": "NARANJA NEON", "tipo": "PU PVC", "stock": 24.0},
+        {"codigo": "PU_PVC", "nombre": "PU 1.4 AZUL REY BRILLANTE", "color": "AZUL REY BRILLANTE", "tipo": "PU PVC", "stock": 12.0},
+        {"codigo": "PU_PVC", "nombre": "PU 1.2 BLANCO MATE TEXTURADO", "color": "BLANCO MATE TEXTURADO", "tipo": "PU PVC", "stock": 35.0},
+        {"codigo": "PU_PVC", "nombre": "PU 1.2 AMARILLO MATE TEXTURADO", "color": "AMARILLO MATE TEXTURADO", "tipo": "PU PVC", "stock": 46.0},
+        {"codigo": "PU_PVC", "nombre": "PU GRIS PLATA TEXTURADO", "color": "GRIS PLATA TEXTURADO", "tipo": "PU PVC", "stock": 140.0},
+        {"codigo": "PU_PVC", "nombre": "PVC 1.2 BLANCO FOAM", "color": "BLANCO FOAM", "tipo": "PU PVC", "stock": 29.0},
+        {"codigo": "PU_PVC", "nombre": "PVC 1.2 AMARILLO FOAM", "color": "AMARILLO FOAM", "tipo": "PU PVC", "stock": 40.0},
+        {"codigo": "PU_PVC", "nombre": "PVC 1.2 NARANJA FOAM", "color": "NARANJA FOAM", "tipo": "PU PVC", "stock": 23.0},
         {"codigo": "TPU", "nombre": "TPU 0.15 BLANCO", "color": "BLANCO", "tipo": "TPU", "stock": 16.0},
         {"codigo": "TPU", "nombre": "TPU 0.20 BLANCO", "color": "BLANCO", "tipo": "TPU", "stock": 50.0},
         {"codigo": "TPU", "nombre": "TPU 0.20 AMARILLO NEON", "color": "AMARILLO NEON", "tipo": "TPU", "stock": 30.0},
@@ -501,14 +500,24 @@ def cargar_maestro_materiales():
     
     try:
         from app_unificada import Material
-        # Forzamos la limpieza inicial solo si faltaban datos de la prueba anterior
         if Material.query.count() < 30:
-            Material.query.delete() # Limpia los 20 de prueba para meter los 59 limpios
+            # Limpiamos remanentes previos para que entre el lote completo impecable
+            Material.query.delete()
             db.session.commit()
             
+            codigos_vistos = {}
             for mat in materiales_iniciales:
                 nuevo = Material()
-                nuevo.codigo = mat["codigo"]
+                
+                # Generamos un identificador único para la columna código base
+                base_code = mat["codigo"].strip().replace(" ", "_")
+                if base_code not in codigos_vistos:
+                    codigos_vistos[base_code] = 1
+                    nuevo.codigo = base_code
+                else:
+                    codigos_vistos[base_code] += 1
+                    nuevo.codigo = f"{base_code}_{codigos_vistos[base_code]}"
+                
                 nuevo.nombre = mat["nombre"]
                 nuevo.color = mat["color"]
                 nuevo.tipo = mat["tipo"]
@@ -524,8 +533,6 @@ def cargar_maestro_materiales():
                     
                 db.session.add(nuevo)
             db.session.commit()
-            print("¡Carga completa de las 59 referencias realizada con éxito!")
-        else:
-            print("Base de datos ya contiene registros completos. Carga omitida.")
+            print("¡Carga completa y exitosa de las 59 referencias con códigos únicos!")
     except Exception as e:
-        print(f"Error al cargar materiales automáticos: {e}")
+        print(f"Error durante la carga masiva: {e}")
