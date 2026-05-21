@@ -431,7 +431,8 @@ if __name__ == '__main__':
     # Esto permite que Render le asigne el puerto que necesite
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
-    
+
+# CÓDIGO MASIVO COMPLETO - 59 REFERENCIAS MAESTRAS
 @app.before_request
 def cargar_maestro_materiales():
     db.create_all()
@@ -441,10 +442,27 @@ def cargar_maestro_materiales():
         {"codigo": "COMUS", "nombre": "COMUS BLANCO BRILLANTE", "color": "BLANCO BRILLANTE", "tipo": "KOPEEL", "stock": 4.0},
         {"codigo": "COMUS", "nombre": "COMUS AMARILLO", "color": "AMARILLO", "tipo": "KOPEEL", "stock": 8.0},
         {"codigo": "COMUS", "nombre": "COMUS AZUL", "color": "AZUL", "tipo": "KOPEEL", "stock": 59.1},
+        {"codigo": "COMUS", "nombre": "COMUS AMARILLO VERDE", "color": "AMARILLO VERDE", "tipo": "KOPEEL", "stock": 325.0},
         {"codigo": "COMUS", "nombre": "COMUS ROJO", "color": "ROJO", "tipo": "KOPEEL", "stock": 5.0},
         {"codigo": "COMUS", "nombre": "COMUS NARANJA", "color": "NARANJA", "tipo": "KOPEEL", "stock": 28.0},
         {"codigo": "COMUS", "nombre": "COMUS NEGRO", "color": "NEGRO", "tipo": "KOPEEL", "stock": 95.5},
         {"codigo": "GERMANO", "nombre": "GER ROJO", "color": "ROJO", "tipo": "KOPEEL", "stock": 129.8},
+        {"codigo": "GERMANO", "nombre": "GER VERDE", "color": "VERDE", "tipo": "KOPEEL", "stock": 10.0},
+        {"codigo": "GERMANO", "nombre": "GER NEGRO", "color": "NEGRO", "tipo": "KOPEEL", "stock": 5.0},
+        {"codigo": "GERMANO", "nombre": "GER AZUL REY", "color": "AZUL REY", "tipo": "KOPEEL", "stock": 8.0},
+        {"codigo": "GERMANO", "nombre": "GER GRIS", "color": "GRIS", "tipo": "KOPEEL", "stock": 3.0},
+        {"codigo": "GERMANO", "nombre": "GER AZUL OSCURO", "color": "AZUL OSCURO", "tipo": "KOPEEL", "stock": 4.0},
+        {"codigo": "GERMANO", "nombre": "GER BLANCO", "color": "BLANCO", "tipo": "KOPEEL", "stock": 70.0},
+        {"codigo": "GERMANO", "nombre": "GER FUCSIA", "color": "FUCSIA", "tipo": "KOPEEL", "stock": 2.0},
+        {"codigo": "GERMANO", "nombre": "GER MORADO", "color": "MORADO", "tipo": "KOPEEL", "stock": 1.0},
+        {"codigo": "GERMANO", "nombre": "GER CELESTE", "color": "CELESTE", "tipo": "KOPEEL", "stock": 1.0},
+        {"codigo": "GERMANO", "nombre": "GER ROSADO", "color": "ROSADO", "tipo": "KOPEEL", "stock": 1.0},
+        {"codigo": "GOLTY", "nombre": "GOL AZUL REY", "color": "AZUL REY", "tipo": "KOPEEL", "stock": 2.0},
+        {"codigo": "GOLTY", "nombre": "GOL AMARILLO", "color": "AMARILLO", "tipo": "KOPEEL", "stock": 2.0},
+        {"codigo": "GOLTY", "nombre": "GOL NEGRO", "color": "NEGRO", "tipo": "KOPEEL", "stock": 110.0},
+        {"codigo": "GOLTY", "nombre": "GOL ROJO", "color": "ROJO", "tipo": "KOPEEL", "stock": 5.0},
+        {"codigo": "GOLTY", "nombre": "GOL ROJO MATE", "color": "ROJO MATE", "tipo": "KOPEEL", "stock": 1.0},
+        {"codigo": "GOLTY", "nombre": "GOL VERDE OSCURO", "color": "VERDE OSCURO", "tipo": "KOPEEL", "stock": 1.0},
         {"codigo": "MEET", "nombre": "KOPEEL", "color": "COLOR", "tipo": "KOPEEL", "stock": 18.0},
         {"codigo": "MEET", "nombre": "MEETNEGRO", "color": "NEGRO", "tipo": "KOPEEL", "stock": 27.0},
         {"codigo": "MEET", "nombre": "MEETROJO", "color": "ROJO", "tipo": "KOPEEL", "stock": 25.0},
@@ -456,21 +474,45 @@ def cargar_maestro_materiales():
         {"codigo": "COSTA", "nombre": "COS OROJO", "color": "ROJO", "tipo": "KOPEEL", "stock": 35.0},
         {"codigo": "COSTA", "nombre": "COS OVERDE", "color": "VERDE", "tipo": "KOPEEL", "stock": 71.0},
         {"codigo": "COSTA", "nombre": "COS OBLANCO", "color": "BLANCO", "tipo": "KOPEEL", "stock": 25.0},
-        {"codigo": "MEXICANO", "nombre": "MEX OASISI VERDE", "color": "OASISI VERDE", "tipo": "KOPEEL", "stock": 30.0}
+        {"codigo": "MEXICANO", "nombre": "MEX OASISI VERDE", "color": "OASISI VERDE", "tipo": "KOPEEL", "stock": 30.0},
+        {"codigo": "PU PVC", "nombre": "PU 1.4 BLANCO MATE", "color": "BLANCO MATE", "tipo": "PU PVC", "stock": 124.0},
+        {"codigo": "PU PVC", "nombre": "PU 1.4 BLANCO BRILLANTE", "color": "BLANCO BRILLANTE", "tipo": "PU PVC", "stock": 47.0},
+        {"codigo": "PU PVC", "nombre": "PU 1.4 AMARILLO NEON BRILLANTE", "color": "AMARILLO NEON BRILLANTE", "tipo": "PU PVC", "stock": 80.0},
+        {"codigo": "PU PVC", "nombre": "PU 1.4 NARANJA NEON", "color": "NARANJA NEON", "tipo": "PU PVC", "stock": 24.0},
+        {"codigo": "PU PVC", "nombre": "PU 1.4 AZUL REY BRILLANTE", "color": "AZUL REY BRILLANTE", "tipo": "PU PVC", "stock": 12.0},
+        {"codigo": "PU PVC", "nombre": "PU 1.2 BLANCO MATE TEXTURADO", "color": "BLANCO MATE TEXTURADO", "tipo": "PU PVC", "stock": 35.0},
+        {"codigo": "PU PVC", "nombre": "PU 1.2 AMARILLO MATE TEXTURADO", "color": "AMARILLO MATE TEXTURADO", "tipo": "PU PVC", "stock": 46.0},
+        {"codigo": "PU PVC", "nombre": "PU GRIS PLATA TEXTURADO", "color": "GRIS PLATA TEXTURADO", "tipo": "PU PVC", "stock": 140.0},
+        {"codigo": "PU PVC", "nombre": "PVC 1.2 BLANCO FOAM", "color": "BLANCO FOAM", "tipo": "PU PVC", "stock": 29.0},
+        {"codigo": "PU PVC", "nombre": "PVC 1.2 AMARILLO FOAM", "color": "AMARILLO FOAM", "tipo": "PU PVC", "stock": 40.0},
+        {"codigo": "PU PVC", "nombre": "PVC 1.2 NARANJA FOAM", "color": "NARANJA FOAM", "tipo": "PU PVC", "stock": 23.0},
+        {"codigo": "TPU", "nombre": "TPU 0.15 BLANCO", "color": "BLANCO", "tipo": "TPU", "stock": 16.0},
+        {"codigo": "TPU", "nombre": "TPU 0.20 BLANCO", "color": "BLANCO", "tipo": "TPU", "stock": 50.0},
+        {"codigo": "TPU", "nombre": "TPU 0.20 AMARILLO NEON", "color": "AMARILLO NEON", "tipo": "TPU", "stock": 30.0},
+        {"codigo": "TPU", "nombre": "TPU 0.20 NARANJA NEON", "color": "NARANJA NEON", "tipo": "TPU", "stock": 31.0},
+        {"codigo": "NEUMATICOS", "nombre": "MICROPOROSA N° 4", "color": "NEGRO", "tipo": "NEUMATICOS", "stock": 12.0},
+        {"codigo": "NEUMATICOS", "nombre": "MICROPOROSA N° 5", "color": "NEGRO", "tipo": "NEUMATICOS", "stock": 53.0},
+        {"codigo": "NEUMATICOS", "nombre": "VALVULAS", "color": "NEGRO", "tipo": "NEUMATICOS", "stock": 400.0},
+        {"codigo": "NEUMATICOS", "nombre": "BLADER GOLTY ORIGINAL N° 5", "color": "NEGRO", "tipo": "NEUMATICOS", "stock": 12.0},
+        {"codigo": "NEUMATICOS", "nombre": "BLADER BOUTE N° 5", "color": "NEGRO", "tipo": "NEUMATICOS", "stock": 61.0},
+        {"codigo": "NEUMATICOS", "nombre": "BLADER BOUTE N° 4", "color": "NEGRO", "tipo": "NEUMATICOS", "stock": 50.0},
+        {"codigo": "NEUMATICOS", "nombre": "BLADER COSTA N° 5", "color": "NEGRO", "tipo": "NEUMATICOS", "stock": 20.0}
     ]
     
     try:
         from app_unificada import Material
-        if Material.query.count() == 0:
+        # Forzamos la limpieza inicial solo si faltaban datos de la prueba anterior
+        if Material.query.count() < 30:
+            Material.query.delete() # Limpia los 20 de prueba para meter los 59 limpios
+            db.session.commit()
+            
             for mat in materiales_iniciales:
-                # Creamos el objeto vacío
                 nuevo = Material()
                 nuevo.codigo = mat["codigo"]
                 nuevo.nombre = mat["nombre"]
                 nuevo.color = mat["color"]
                 nuevo.tipo = mat["tipo"]
                 
-                # Asignamos el stock intentando detectar el nombre exacto de la columna
                 if hasattr(nuevo, 'cantidad'):
                     nuevo.cantidad = mat["stock"]
                 elif hasattr(nuevo, 'metraje'):
@@ -482,6 +524,8 @@ def cargar_maestro_materiales():
                     
                 db.session.add(nuevo)
             db.session.commit()
-            print("¡Carga masiva de materiales completada con éxito!")
+            print("¡Carga completa de las 59 referencias realizada con éxito!")
+        else:
+            print("Base de datos ya contiene registros completos. Carga omitida.")
     except Exception as e:
         print(f"Error al cargar materiales automáticos: {e}")
